@@ -5,6 +5,7 @@ import {
   ToastOptions,
 } from '@ionic/angular';
 import { SelectOption } from '../models/select.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +13,7 @@ import { SelectOption } from '../models/select.model';
 export class UtilsService {
   loadingCtr = inject(LoadingController);
   toastCtrl = inject(ToastController);
+  router = inject(Router);
 
   loading() {
     return this.loadingCtr.create({ spinner: 'lines-sharp' });
@@ -33,5 +35,17 @@ export class UtilsService {
         value: 'pupilo',
       },
     ];
+  }
+
+  routerLink(url: string) {
+    return this.router.navigateByUrl(url);
+  }
+
+  saveInLocalStorage(key: string, value: any) {
+    return localStorage.setItem(key, JSON.stringify(value));
+  }
+
+  getFromLocalStorage(key: string) {
+    return JSON.parse(localStorage.getItem(key));
   }
 }

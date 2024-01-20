@@ -6,12 +6,15 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
 } from 'firebase/auth';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { getFirestore, setDoc, doc, getDoc } from '@angular/fire/firestore';
 import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root',
 })
 export class FirebaseService {
   auth = inject(AngularFireAuth);
+  firestore = inject(AngularFirestore);
 
   signIn(user: User) {
     return signInWithEmailAndPassword(getAuth(), user.email, user.password);
@@ -23,5 +26,13 @@ export class FirebaseService {
 
   updateUser(displayName: string) {
     return updateProfile(getAuth().currentUser, { displayName });
+  }
+
+  setDocument(path: string, data: any) {
+    return setDoc(doc(getFirestore(), path), data);
+  }
+
+  async getDocument(path: string) {
+    return (await getDoc(doc(getFirestore(), path))).data();
   }
 }
