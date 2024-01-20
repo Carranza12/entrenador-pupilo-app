@@ -1,0 +1,47 @@
+@if(type !== 'select'){
+<ion-item class="custom-input" lines="none">
+  @if(icon) {
+  <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
+  }
+  <ion-input
+    [type]="type"
+    [autocomplete]="autocomplete"
+    [label]="label"
+    [formControl]="control"
+    label-placement="floating"
+  ></ion-input>
+  @if(isPassword){
+  <ion-button
+    (click)="showOrHidePassword()"
+    slot="end"
+    expand="block"
+    fill="clear"
+    shape="round"
+  >
+    <ion-icon
+      slot="icon-only"
+      [name]="hide ? 'eye-outline' : 'eye-off-outline'"
+    ></ion-icon>
+  </ion-button>
+  }
+</ion-item>
+} @if(type === 'select'){
+  <ion-item class="custom-input" lines="none">
+    @if(icon) {
+      <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
+      }
+    <ion-select
+    mode="ios"
+      label-placement="floating"
+      [formControl]="control"
+      interface="action-sheet"
+      [label]="label"
+    >
+      @for (option of options; track option.text) {
+      <ion-select-option [value]="option.value">{{
+        option.text
+      }}</ion-select-option>
+      }
+    </ion-select>
+  </ion-item>
+}
