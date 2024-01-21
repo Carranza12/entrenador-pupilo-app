@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   updateProfile,
+  sendPasswordResetEmail,
 } from 'firebase/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { getFirestore, setDoc, doc, getDoc } from '@angular/fire/firestore';
@@ -34,5 +35,9 @@ export class FirebaseService {
 
   async getDocument(path: string) {
     return (await getDoc(doc(getFirestore(), path))).data();
+  }
+
+  sendRecoveryEmail(email: string) {
+    return sendPasswordResetEmail(getAuth(), email);
   }
 }
