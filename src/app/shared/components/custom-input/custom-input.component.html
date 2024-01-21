@@ -3,27 +3,29 @@
   @if(icon) {
   <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
   }
+ <div style="display: flex;justify-content: space-around;width: 100%;">
   <ion-input
-    [type]="type"
-    [autocomplete]="autocomplete"
-    [label]="label"
-    [formControl]="control"
-    label-placement="floating"
-  ></ion-input>
-  @if(isPassword){
-  <ion-button
-    (click)="showOrHidePassword()"
-    slot="end"
-    expand="block"
-    fill="clear"
-    shape="round"
-  >
-    <ion-icon
-      slot="icon-only"
-      [name]="hide ? 'eye-outline' : 'eye-off-outline'"
-    ></ion-icon>
-  </ion-button>
-  }
+  [type]="type"
+  [autocomplete]="autocomplete"
+  [label]="label"
+  [formControl]="control"
+  label-placement="floating"
+></ion-input>
+@if(isPassword){
+<ion-button
+  (click)="showOrHidePassword()"
+  slot="end"
+  expand="block"
+  fill="clear"
+  shape="round"
+>
+  <ion-icon
+    slot="icon-only"
+    [name]="hide ? 'eye-outline' : 'eye-off-outline'"
+  ></ion-icon>
+</ion-button>
+}
+ </div>
 </ion-item>
 } @if(type === 'select'){
   <ion-item class="custom-input" lines="none">
