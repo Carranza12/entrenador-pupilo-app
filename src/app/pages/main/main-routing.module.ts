@@ -6,12 +6,56 @@ import { MainPage } from './main.page';
 const routes: Routes = [
   {
     path: '',
-    component: MainPage
+    component: MainPage,
+    children: [
+      {
+        path: 'home',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./home/home.module').then((m) => m.HomePageModule),
+          },
+        ],
+      },
+      {
+        path: 'teams',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./teams/teams.module').then((m) => m.TeamsPageModule),
+          },
+        ],
+      },
+
+      {
+        path: 'planning',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./planning/planning.module').then(
+                (m) => m.PlanningPageModule
+              ),
+          },
+        ],
+      },
+
+      {
+        path: 'activities',
+        children: [
+          {
+            path: '',
+            loadChildren: () =>
+              import('./activities/activities.module').then(
+                (m) => m.ActivitiesPageModule
+              ),
+          },
+        ],
+      },
+    ],
   },
-  {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
-  }
 ];
 
 @NgModule({
