@@ -1,9 +1,12 @@
 
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
-    <ion-buttons slot="start" *ngIf="sidebarButton" >
-      <ion-menu-button></ion-menu-button>
+    <ion-buttons slot="end" *ngIf="sidebarButton">
+      <ion-menu-button >
+        <ion-icon  name="ellipsis-vertical-outline"></ion-icon>
+      </ion-menu-button>
     </ion-buttons>
+    
     <ion-buttons slot="start">
       <ion-back-button *ngIf="backButton" [defaultHref]="backButton"></ion-back-button>
     </ion-buttons>
