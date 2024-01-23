@@ -81,8 +81,14 @@ export class FirebaseService {
       
           await this.updateDocument(path, { photoProfile: downloadURL, description: form.description})
             .then((res) => {
-              this.utilsSvc.routerLink('/main/profile');
-              
+              this.utilsSvc.routerLink('/main/home');
+              this.utilsSvc.presentToast({
+                message: 'informacion actualziada con exito!',
+                duration: 2500,
+                color: 'success',
+                position: 'bottom',
+                icon: 'happy',
+              });
             })
             .catch((error) => {
               console.log(error);
