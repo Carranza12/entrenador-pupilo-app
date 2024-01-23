@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { ChangeDetectorRef, Injectable, inject } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import {
   getAuth,
@@ -14,7 +14,8 @@ import { ref } from '@angular/fire/storage';
 import { User } from '../models/user.model';
 import { UtilsService } from './utils.service';
 import { updateDoc } from 'firebase/firestore';
-import { Observable, finalize } from 'rxjs';
+import { Observable, Subject, Subscription, finalize } from 'rxjs';
+import { RefreshService } from './refresh.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -23,6 +24,10 @@ export class FirebaseService {
   firestore = inject(AngularFirestore);
   storage = inject(AngularFireStorage);
   utilsSvc = inject(UtilsService);
+
+  private refreshSubscription: Subscription;
+  
+  constructor(  ){}
 
   signIn(user: User) {
     return signInWithEmailAndPassword(getAuth(), user.email, user.password);
@@ -81,14 +86,11 @@ export class FirebaseService {
       
           await this.updateDocument(path, { photoProfile: downloadURL, description: form.description})
             .then((res) => {
-              this.utilsSvc.routerLink('/main/home');
-              this.utilsSvc.presentToast({
-                message: 'informacion actualziada con exito!',
-                duration: 2500,
-                color: 'success',
-                position: 'bottom',
-                icon: 'happy',
-              });
+           
+              
+             return true;
+         
+              
             })
             .catch((error) => {
               console.log(error);

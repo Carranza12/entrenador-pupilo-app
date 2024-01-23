@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef  } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { FirebaseService } from 'src/app/services/firebase.service';
@@ -19,7 +19,9 @@ export class EditProfilePage implements OnInit {
   constructor(
     public firebaseSvc: FirebaseService,
     private route: ActivatedRoute,
-    public utilsSvc: UtilsService
+    public utilsSvc: UtilsService,
+    private cdr: ChangeDetectorRef
+   
   ) {}
 
   ngOnInit() {
@@ -52,12 +54,18 @@ export class EditProfilePage implements OnInit {
         .updateProfile(this.selectedFile, this.user_uid, this.form.value)
         .subscribe(async (downloadURL) => {
        
-          if(typeof(downloadURL) !== 'string'){
-            console.log("no es un string")
-            return;
-          }
-          console.log('File uploaded successfully. Download URL:', downloadURL);
-          console.log("aqui ya es un string, ya puedes subirlo")
+         
+         if(downloadURL){
+          this.cdr.detectChanges();
+          this.utilsSvc.routerLink('/main/profile');
+        this.utilsSvc.presentToast({
+          message: 'informacion actualziada con exito!',
+          duration: 2500,
+          color: 'success',
+          position: 'bottom',
+          icon: 'happy',
+        });
+         }
          
         });
     } else {
