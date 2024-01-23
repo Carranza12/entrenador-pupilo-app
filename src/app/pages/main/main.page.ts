@@ -10,8 +10,11 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class MainPage implements OnInit {
   firebaseSvc = inject(FirebaseService);
   utilsSvc = inject(UtilsService);
-
-  ngOnInit() {}
+  user!:any;
+  ngOnInit() {
+    this.user = this.utilsSvc.getFromLocalStorage('user');
+    console.log("this.user:", this.user)
+  }
 
   signOut() {
     this.firebaseSvc.signOut();

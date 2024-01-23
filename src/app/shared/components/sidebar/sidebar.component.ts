@@ -17,4 +17,7 @@ export class SidebarComponent implements OnInit {
   signOut() {
     this.firebaseSVC.signOut();
   }
+  openProfile() {
+    this.utilsSVC.routerLink('/main/profile')
+  }
 }

@@ -1,0 +1,15 @@
+<app-header title="PROFILE" backButton="/main/home"></app-header>
+<ion-content>
+  <div class="gallery">
+    @for (imgPrev of imagesPreview; track $index) {
+    <img [src]="imgPrev.src" />
+    }
+  </div>
+  <div class="profile-header">
+    <img src="https://media-qro1-1.cdn.whatsapp.net/v/t61.24694-24/421059760_698400115763623_8888590156284438855_n.jpg?ccb=11-4&oh=01_AdTy2yJ_eB8KAmArqqtNuxQsAztHa7jJmc8XVkNeDsjP7w&oe=65BD2C52&_nc_sid=e6ed6c&_nc_cat=106" alt="">
+    <div>
+      <h3>Francisco Carranza</h3>
+      <p>Un kilometro mas, pero mas rapido.</p>
+    </div>
+  </div>
+</ion-content>
