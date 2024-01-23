@@ -1,4 +1,4 @@
-@if(type !== 'select'){
+@if(type !== 'select' && type !== 'file'){
 <ion-item class="custom-input" lines="none">
   @if(icon) {
   <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
@@ -45,5 +45,20 @@
       }}</ion-select-option>
       }
     </ion-select>
+  </ion-item>
+}
+
+@if(type === 'file'){
+  <ion-item class="custom-input" lines="none">
+    @if(icon) {
+      <ion-icon color="primary" slot="start" [name]="icon"></ion-icon>
+      }
+      <ion-input
+      [type]="type"
+      [autocomplete]="autocomplete"
+      [label]="label"
+      [formControl]="control"
+      label-placement="floating"
+    ></ion-input>
   </ion-item>
 }

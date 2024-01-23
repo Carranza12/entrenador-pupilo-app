@@ -1,0 +1,38 @@
+<app-header title="EDIT PROFILE" backButton="/main/profile"></app-header>
+<ion-content>
+  <div class="d-flex-center">
+    <form
+      [formGroup]="form"
+      class="auth-form"
+      (ngSubmit)="submit()"
+      (keypress.enter)="submit()"
+    >
+      <app-custom-input
+        (change)="onFileSelected($event)"
+        icon="document-outline"
+        [control]="form.controls.file"
+        type="file"
+        label="Selecciona una foto de perfil"
+      ></app-custom-input>
+
+      <app-custom-input
+      icon="book"
+      [control]="form.controls.description"
+      type="text"
+      label="Descripcion"
+    ></app-custom-input>
+
+      <ion-button
+        mode="ios"
+        expand="block"
+        class="submit"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Actualizar perfil
+        <ion-icon slot="end" name="person-outline"></ion-icon>
+      </ion-button>
+     
+    </form>
+  </div>
+</ion-content>
