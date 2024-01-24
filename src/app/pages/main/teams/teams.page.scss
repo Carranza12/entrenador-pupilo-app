@@ -1,0 +1,17 @@
+.label_news{
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 13px;
+    padding: 20px;
+    img {
+        width: 100px
+    }
+    h3{
+        margin: 0;
+        font-size: 26px;
+    }
+}

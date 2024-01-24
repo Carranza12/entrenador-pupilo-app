@@ -1,4 +1,8 @@
 <app-header title="EQUIPOS" sidebarButton="true"></app-header>
-  <ion-content>
+  <ion-content >
+    <div class="label_news" *ngIf="teams.length ===0">
+      <img src="../../../../assets/images/team-icon.png" alt="">
+      <h3>{{ teamsEmptyMessage }}</h3>
+    </div>
     <div class="example-content">Equipos now content</div>
   </ion-content>
