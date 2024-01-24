@@ -16,10 +16,10 @@ export class TeamsPage implements OnInit {
     const user = this.utilsSvc.getFromLocalStorage("user")
     console.log("user:", user)
     if(user.rol === "entrenador"){
-      this.teamsEmptyMessage = "Aun no tienes equipos creados, pulsa en el icono de "+" para crear uno"
+      this.teamsEmptyMessage = "Aun no tienes equipos creados, pulsa en el icono de '+' para crear uno"
     }
     if(user.rol === "pupilo"){
-      this.teamsEmptyMessage = "Aun no te unes a ningun equipo, pulsa en el icono de "+" para unirte a uno"
+      this.teamsEmptyMessage = "Aun no te unes a ningun equipo, pulsa en el icono de '+' para unirte a uno"
     }
   }
 
