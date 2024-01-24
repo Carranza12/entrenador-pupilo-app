@@ -8,13 +8,26 @@ import {
   sendPasswordResetEmail,
 } from 'firebase/auth';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { getFirestore, setDoc, doc, getDoc } from '@angular/fire/firestore';
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  getDoc,
+  addDoc,
+  collection,
+  collectionData,
+  query,
+} from '@angular/fire/firestore';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
-import { ref } from '@angular/fire/storage';
+import {
+  ref,
+  getStorage,
+  uploadString,
+  getDownloadURL,
+} from '@angular/fire/storage';
 import { User } from '../models/user.model';
 import { UtilsService } from './utils.service';
 import { updateDoc } from 'firebase/firestore';
-import { Observable, Subject, Subscription, finalize } from 'rxjs';
 import { RefreshService } from './refresh.service';
 @Injectable({
   providedIn: 'root',
@@ -25,9 +38,7 @@ export class FirebaseService {
   storage = inject(AngularFireStorage);
   utilsSvc = inject(UtilsService);
 
-  private refreshSubscription: Subscription;
-  
-  constructor(  ){}
+  constructor() {}
 
   signIn(user: User) {
     return signInWithEmailAndPassword(getAuth(), user.email, user.password);
@@ -67,46 +78,20 @@ export class FirebaseService {
     this.utilsSvc.routerLink('/auth');
   }
 
-  updateProfile(file: File, user_uid: string, form:any): Observable<any> {
-    console.log("FORM:", form)
-    const filePath = `users/${user_uid}_photoProfile`;
-    const fileRef = this.storage.ref(filePath);
-    const uploadTask = this.storage.upload(filePath, file);
+  addDocument(path: string, data: any) {
+    return addDoc(collection(getFirestore(), path), data);
+  }
 
-    uploadTask.percentageChanges().subscribe((percentage) => {
-      console.log(`Uploaded: ${percentage}%`);
-    });
-    return uploadTask.snapshotChanges().pipe(
-      finalize(async () => {
-        const downloadURL = await fileRef.getDownloadURL().toPromise();
-
-        const loading = await this.utilsSvc.loading();
-        loading.present();
-        let path = `users/${user_uid}`;
-      
-          await this.updateDocument(path, { photoProfile: downloadURL, description: form.description})
-            .then((res) => {
-           
-              
-             return true;
-         
-              
-            })
-            .catch((error) => {
-              console.log(error);
-              this.utilsSvc.presentToast({
-                message: error.message,
-                duration: 2500,
-                color: 'danger',
-                position: 'bottom',
-                icon: 'alert-circle-outline',
-              });
-            })
-            .finally(() => {
-              loading.dismiss();
-            });
-       
-      })
+  async uploadImage(path: string, data_url: string) {
+    return uploadString(ref(getStorage(), path), data_url, 'data_url').then(
+      () => {
+        return getDownloadURL(ref(getStorage(), path));
+      }
     );
+  }
+
+  getCollectionData(path: string, collectionQuery?: any) {
+    const ref = collection(getFirestore(), path);
+    return collectionData(query(ref, collectionQuery), { idField: 'id' });
   }
 }

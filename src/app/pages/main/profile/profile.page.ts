@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, SimpleChanges, inject } from '@angular/core';
 import { User } from 'firebase/auth';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
@@ -12,11 +12,11 @@ export class ProfilePage implements OnInit {
   imagesPreview = [];
   firebaseSvc = inject(FirebaseService);
   utilsSvc = inject(UtilsService);
-  user!:any;
+  user!: any;
   constructor() {}
 
   ngOnInit() {
-    this.getUser()
+    this.getUser();
     this.imagesPreview = [
       {
         src: 'https://statics-cuidateplus.marca.com/cms/styles/natural/azblob/2022-12/running-consejos-principiantes.jpg.webp?itok=Y1qsCYZQ',
@@ -33,6 +33,13 @@ export class ProfilePage implements OnInit {
     ];
   }
 
+  doRefresh(event) {
+    setTimeout(() => {
+      this.getUser();
+      event.target.complete();
+    }, 1000);
+  }
+
   openEditProfile() {
     console.log('open edit profile page');
     this.utilsSvc.routerLink(`/main/profile/edit/${this.user.uid}`);
@@ -47,8 +54,10 @@ export class ProfilePage implements OnInit {
       .getDocument(path)
       .then((user: any) => {
         this.user = user;
-        console.log("usuario:", user)
-        this.user.photoProfile = user.photoProfile ? user.photoProfile : '../../../../assets/images/photo-profile-default.webp'
+        console.log('usuario:', user);
+        this.user.photoProfile = user.photoProfile
+          ? user.photoProfile
+          : '../../../../assets/images/photo-profile-default.webp';
       })
       .catch((error) => {
         console.log(error);

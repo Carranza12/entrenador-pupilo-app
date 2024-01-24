@@ -7,20 +7,25 @@
       (ngSubmit)="submit()"
       (keypress.enter)="submit()"
     >
-      <app-custom-input
-        (change)="onFileSelected($event)"
-        icon="document-outline"
-        [control]="form.controls.file"
-        type="file"
-        label="Selecciona una foto de perfil"
-      ></app-custom-input>
 
-      <app-custom-input
-      icon="book"
-      [control]="form.controls.description"
-      type="text"
-      label="Descripcion"
-    ></app-custom-input>
+    <ion-avatar *ngIf="form.value.file">
+      <img [src]="form.value.file" />
+    </ion-avatar>
+
+    <ion-avatar *ngIf="!form.value.file">
+      <img class="image-icon" src="../../../../assets/images/photo-profile-default.webp" />
+    </ion-avatar>
+
+    <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
+      Tomar/seleccionar foto de perfil
+    </ion-button>
+
+    <app-custom-input
+    icon="book-outline"
+    [control]="form.controls.description"
+    type="text"
+    label="Descripcion"
+  ></app-custom-input>
 
       <ion-button
         mode="ios"

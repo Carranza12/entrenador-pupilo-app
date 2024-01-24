@@ -25,18 +25,15 @@ export class AuthGuard implements CanActivate {
     | boolean
     | UrlTree {
     let user = localStorage.getItem('user');
-    if(!user){
-      this.firebaseSvc.signOut()
-      return false
-    }
+  
     return new Promise((resolve) => {
       this.firebaseSvc.getAuth().onAuthStateChanged((auth) => {
         console.log("auth:", auth)
-        
+        if(auth){
           if (user) resolve(true);
+        }
          else {
-          console.log("no esta el user")
-          //this.firebaseSvc.signOut()
+          this.firebaseSvc.signOut()
           resolve(false);
         }
       });

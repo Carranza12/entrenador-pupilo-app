@@ -1,5 +1,10 @@
 <app-header title="PROFILE" backButton="/main/home"></app-header>
 <ion-content *ngIf="user">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)" >
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <div class="gallery">
     @for (imgPrev of imagesPreview; track $index) {
     <img [src]="imgPrev.src" />

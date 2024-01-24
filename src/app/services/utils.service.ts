@@ -6,6 +6,7 @@ import {
 } from '@ionic/angular';
 import { SelectOption } from '../models/select.model';
 import { Router } from '@angular/router';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Injectable({
   providedIn: 'root',
@@ -17,6 +18,18 @@ export class UtilsService {
 
   loading() {
     return this.loadingCtr.create({ spinner: 'lines-sharp' });
+  }
+
+  async takePicture(promptLabelHeader: string) {
+    return await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.DataUrl,
+      source: CameraSource.Prompt,
+      promptLabelHeader,
+      promptLabelPhoto: 'Selecciona una imagen',
+      promptLabelPicture: 'Toma una foto',
+    });
   }
 
   async presentToast(opts?: ToastOptions) {
@@ -37,7 +50,10 @@ export class UtilsService {
     ];
   }
 
-  routerLink(url: string) {
+  routerLink(url: string, navigationExtras?: any) {
+    if (navigationExtras) {
+      return this.router.navigateByUrl(url, navigationExtras);
+    }
     return this.router.navigateByUrl(url);
   }
 
