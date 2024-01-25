@@ -50,6 +50,19 @@ export class UtilsService {
     ];
   }
 
+  getTeamTypesOptions(): SelectOption[]{
+    return [
+      {
+        text: 'Publico',
+        value: 'publico',
+      },
+      {
+        text: 'Privado',
+        value: 'privado',
+      },
+    ]
+  }
+
   routerLink(url: string, navigationExtras?: any) {
     if (navigationExtras) {
       return this.router.navigateByUrl(url, navigationExtras);

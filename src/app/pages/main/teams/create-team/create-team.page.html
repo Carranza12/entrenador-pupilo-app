@@ -1,0 +1,72 @@
+<app-header title="Nuevo Equipo" sidebarButton="true" backButton="/main/teams"></app-header>
+<ion-content>
+  <div class="d-flex-center">
+    <form
+      [formGroup]="form"
+      class="auth-form"
+      (ngSubmit)="submit()"
+      (keypress.enter)="submit()"
+    >
+
+      <app-custom-input
+        icon="people"
+        [control]="form.controls.name"
+        type="text"
+        label="Nombre del equipo"
+      ></app-custom-input>
+      <div
+        class="validators"
+        *ngIf="form.controls.name.errors && form.controls.name.touched"
+      >
+        <div *ngIf="form.controls.name.errors?.['minlength']">
+          El nombre debe tener por lo menos 6 caracteres
+        </div>
+        <div *ngIf="form.controls.name.errors?.['required']">
+          El nombre es requerido
+        </div>
+      </div>
+
+      <app-custom-input
+      icon="barbell-outline"
+      [control]="form.controls.type"
+      type="select"
+      label="Tipo de equipo"
+      [options]="teamTypesOptions"
+    ></app-custom-input>
+    <div
+      class="validators"
+      *ngIf="form.controls.type.errors && form.controls.type.touched"
+    >
+      <div *ngIf="form.controls.type.errors?.['required']">
+        El tipo es requerido
+      </div>
+    </div>
+
+  
+      
+     
+      <ion-button
+        mode="ios"
+        expand="block"
+        class="submit"
+        type="submit"
+        [disabled]="form.invalid"
+      >
+        Registrarse
+        <ion-icon slot="end" name="person-add-outline"></ion-icon>
+      </ion-button>
+      <ion-button
+        class="ion-margin-top"
+        routerLink="/auth"
+        mode="ios"
+        expand="block"
+        fill="outline"
+      >
+        Iniciar sesion
+        <ion-icon slot="end" name="log-in-outline"></ion-icon>
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
+  
+  
