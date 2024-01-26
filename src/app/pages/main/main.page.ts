@@ -13,7 +13,6 @@ export class MainPage implements OnInit {
   user!:any;
   ngOnInit() {
     this.user = this.utilsSvc.getFromLocalStorage('user');
-    console.log("this.user:", this.user)
   }
 
   signOut() {

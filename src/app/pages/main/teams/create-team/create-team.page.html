@@ -8,6 +8,18 @@
       (keypress.enter)="submit()"
     >
 
+    <ion-avatar *ngIf="form.value.img">
+      <img [src]="form.value.img" />
+    </ion-avatar>
+
+    <ion-avatar *ngIf="!form.value.img">
+      <img class="image-icon" src="../../../../assets/images/team-image-profile.jpg" />
+    </ion-avatar>
+
+    <ion-button (click)="takeImage()" mode="ios" size="small" shape="round">
+      Tomar/seleccionar foto de perfil
+    </ion-button>
+
       <app-custom-input
         icon="people"
         [control]="form.controls.name"
@@ -18,9 +30,6 @@
         class="validators"
         *ngIf="form.controls.name.errors && form.controls.name.touched"
       >
-        <div *ngIf="form.controls.name.errors?.['minlength']">
-          El nombre debe tener por lo menos 6 caracteres
-        </div>
         <div *ngIf="form.controls.name.errors?.['required']">
           El nombre es requerido
         </div>
@@ -43,7 +52,20 @@
     </div>
 
   
-      
+    <app-custom-input
+    icon="people"
+    [control]="form.controls.description"
+    type="text"
+    label="Descripcion del equipo"
+  ></app-custom-input>
+  <div
+    class="validators"
+    *ngIf="form.controls.description.errors && form.controls.description.touched"
+  >
+    <div *ngIf="form.controls.description.errors?.['required']">
+      La descripcion es requerida
+    </div>
+  </div>
      
       <ion-button
         mode="ios"
@@ -52,19 +74,10 @@
         type="submit"
         [disabled]="form.invalid"
       >
-        Registrarse
+        Crear equipo
         <ion-icon slot="end" name="person-add-outline"></ion-icon>
       </ion-button>
-      <ion-button
-        class="ion-margin-top"
-        routerLink="/auth"
-        mode="ios"
-        expand="block"
-        fill="outline"
-      >
-        Iniciar sesion
-        <ion-icon slot="end" name="log-in-outline"></ion-icon>
-      </ion-button>
+      
     </form>
   </div>
 </ion-content>

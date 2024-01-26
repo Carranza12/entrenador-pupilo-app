@@ -28,7 +28,6 @@ export class AuthGuard implements CanActivate {
   
     return new Promise((resolve) => {
       this.firebaseSvc.getAuth().onAuthStateChanged((auth) => {
-        console.log("auth:", auth)
         if(auth){
           if (user) resolve(true);
         }
