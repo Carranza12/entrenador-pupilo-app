@@ -11,6 +11,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class TeamsPage implements OnInit {
   teams: any = [];
+  teamsFiltered:any = [];
   user: any;
   search:FormControl = new FormControl('')
   teamsEmptyMessage: string;
@@ -29,6 +30,23 @@ export class TeamsPage implements OnInit {
     }
 
     this.getTeams();
+
+    this.search.valueChanges.subscribe((valor:any) =>{
+      if(valor){
+        if(this.user.rol === 'entrenador'){
+          console.log("buscando...")
+          this.teamsFiltered  = this.teams.filter((team:any) => team.name.includes(valor))
+          console.log("this.teamsFiltered:", this.teamsFiltered)
+        }
+      }
+      if(!valor){
+        if(this.user.rol === 'entrenador'){
+          console.log("buscando...")
+          this.teamsFiltered  = this.teams
+          console.log("this.teamsFiltered:", this.teamsFiltered)
+        }
+      }
+    })
   }
 
   getTeams() {
@@ -41,7 +59,7 @@ export class TeamsPage implements OnInit {
         .getCollectionData('teams', query)
         .subscribe((res: any) => {
           this.teams = res;
-          console.log('EQUIPOS:', this.teams);
+          this.teamsFiltered = this.teams;
         });
     }
   }
