@@ -1,14 +1,36 @@
 <app-header title="EQUIPOS" sidebarButton="true"></app-header>
-  <ion-content >
-    <div class="label_news" *ngIf="teams.length ===0">
-      <img src="../../../../assets/images/team-icon.png" alt="">
-      <h3>{{ teamsEmptyMessage }}</h3>
+<ion-content>
+  <div class="label_news" *ngIf="teams.length ===0">
+    <img src="../../../../assets/images/team-icon.png" alt="" />
+    <h3>{{ teamsEmptyMessage }}</h3>
+  </div>
+  <div style="padding: 10px; padding-bottom: 0px;padding-top: 5px;">
+    <app-custom-input
+  icon="search-outline"
+  [control]="search"
+  type="text"
+  label="Busca un equipo publico"
+></app-custom-input>
+  </div>
+
+
+  <div class="teams_container">
+    @for (team of teams; track team.id) {
+    <div class="team_item">
+      <img [src]="team.img ? team.img : '../../../../assets/images/team-image-profile.jpg'" alt="" />
+      <div class="team_info">
+        <h3>{{team.name}}</h3>
+        <p>{{team.members.length}} miembros</p>
+        <p ><span>{{team.type}}</span></p>
+      </div>
     </div>
-    <div class="example-content">Equipos now content</div>
-  </ion-content>
-  
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="openTeam()">
-    <ion-fab-button>
-      <ion-icon name="add"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+
+    }
+  </div>
+</ion-content>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end" (click)="openTeam()">
+  <ion-fab-button>
+    <ion-icon name="add"></ion-icon>
+  </ion-fab-button>
+</ion-fab>

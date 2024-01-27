@@ -15,3 +15,48 @@
         font-size: 26px;
     }
 }
+
+.teams_container{
+    display: flex;
+    flex-direction: column;
+}
+
+.team_item{
+    margin: 10px;
+    border-radius: 13px;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: calc(100% - 20px);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    img{
+        border-radius: 20px;
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+    }
+    .team_info{
+       
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        h3{
+            font-size: 18px;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0;
+        }
+        p{
+            font-size: 14px;
+            margin:0;
+        }
+        span{
+            font-size: 12px;
+            border-radius: 13px;
+            background-color:#3880ff ;
+            padding: 5px;
+            color: white;
+        }
+    }
+}

@@ -1,4 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
+import { orderBy, where } from '@angular/fire/firestore';
+import { FormControl } from '@angular/forms';
 import { FirebaseService } from 'src/app/services/firebase.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -10,6 +12,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 export class TeamsPage implements OnInit {
   teams: any = [];
   user: any;
+  search:FormControl = new FormControl('')
   teamsEmptyMessage: string;
   utilsSvc = inject(UtilsService);
   firebaseSvc = inject(FirebaseService);
@@ -29,10 +32,18 @@ export class TeamsPage implements OnInit {
   }
 
   getTeams() {
-    this.firebaseSvc.getCollectionData('teams').subscribe((res: any) => {
-      this.teams = res;
-      console.log('EQUIPOS:', this.teams);
-    });
+    if (this.user.rol === 'entrenador') {
+      let query: any = [
+        orderBy('name', 'desc'),
+        where('creator', '==', this.user.uid),
+      ];
+      this.firebaseSvc
+        .getCollectionData('teams', query)
+        .subscribe((res: any) => {
+          this.teams = res;
+          console.log('EQUIPOS:', this.teams);
+        });
+    }
   }
 
   openTeam() {
