@@ -1,9 +1,5 @@
 <app-header title="EQUIPOS" sidebarButton="true"></app-header>
 <ion-content>
-  <div class="label_news" *ngIf="teamsFiltered.length ===0">
-    <img src="../../../../assets/images/team-icon.png" alt="" />
-    <h3>{{ teamsEmptyMessage }}</h3>
-  </div>
   <div style="padding: 10px; padding-bottom: 0px;padding-top: 5px;">
     <app-custom-input
   icon="search-outline"
@@ -12,6 +8,11 @@
   label="Busca un equipo publico"
 ></app-custom-input>
   </div>
+  <div class="label_news" *ngIf="teamsFiltered.length ===0">
+    <img src="../../../../assets/images/team-icon.png" alt="" />
+    <h3>{{ teamsEmptyMessage }}</h3>
+  </div>
+  
 
 
   <div class="teams_container">

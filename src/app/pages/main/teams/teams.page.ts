@@ -71,6 +71,7 @@ export class TeamsPage implements OnInit {
     }
     if (this.user.rol === 'pupilo') {
       console.log('vas a la vista donde puedes unierte a un equipo');
+      this.utilsSvc.routerLink('/main/teams/join')
     }
   }
 }

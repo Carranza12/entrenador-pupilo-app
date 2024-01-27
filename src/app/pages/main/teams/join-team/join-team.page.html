@@ -1,0 +1,43 @@
+<app-header title="Nuevo Equipo" sidebarButton="true" backButton="/main/teams"></app-header>
+<ion-content>
+  <div class="d-flex-center">
+    <form
+      class="auth-form"
+      (submit)="join()"
+      (keypress.enter)="join()"
+    >
+
+
+      <app-custom-input
+        icon="people"
+        [control]="codigoTeam"
+        type="text"
+        label="Codigo del equipo"
+      ></app-custom-input>
+      <div
+        class="validators"
+        *ngIf="codigoTeam.errors && codigoTeam.touched"
+      >
+        <div *ngIf="codigoTeam.errors?.['required']">
+          El codigo es requerido
+        </div>
+      </div>
+
+   
+     
+      <ion-button
+        mode="ios"
+        expand="block"
+        class="submit"
+        (click)="join()"
+        [disabled]="codigoTeam.invalid"
+      >
+        unirte al equipo
+        <ion-icon slot="end" name="person-add-outline"></ion-icon>
+      </ion-button>
+      
+    </form>
+  </div>
+</ion-content>
+  
+  
